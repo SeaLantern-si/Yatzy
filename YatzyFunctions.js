@@ -11,20 +11,30 @@ let diceHoldStatus = [0, 0, 0, 0, 0]
 
 let frequencyArray = [0, 0, 0, 0, 0, 0, 0]
 
-let resultHoldStatus = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-
 let throwCount = 0;
 
 let results = document.querySelectorAll("input")
 
-let diceHTML = document.querySelectorAll("img")
+let diceIMG = document.querySelectorAll("img")
 
-throwDice()
+let THROWDATDICE = document.getElementById("Roll")
+
+let turnLabel = document.getElementById("Turn")
+
+THROWDATDICE.onclick = () => throwDice()
+
+for(let i = 0; i < 15; i++){
+    results[i].onclick = resultChosen
+    results[i].dataset.valgt = "nej"
+}
+
+for(let i = 0; i < results.length; i++){
+    results[i].value = "0"
+}
 
 console.log(values)
 console.log(frequencyArray)
 console.log(results)
-console.log(totalPoint())
 
 
 function getValues(){
@@ -39,37 +49,59 @@ function resetThrowCount() {
         throwCount = 0;
 }
 
-function totalPoint(){
-    let sum = 0
-    for (const indeks in results) {
-        if(resultHoldStatus[indeks]) sum += results[indeks]
-    }
-}
-
-function resultChosen(resultToHoldIndex){
+function resultChosen(event){
     diceHoldStatus = [0, 0, 0, 0, 0]
-    frequencyArray = [0, 0, 0, 0, 0, 0]
     throwCount = 0;
-    holdResult(resultToHoldIndex)
-    sum()
-    total()
-}
-
-function throwDice(){
-    for (let i = 0; i < 5; i++) {
-        if (!diceHoldStatus[i]) {
-            values[i] = Math.floor(Math.random() * 6 + 1);
+    event.target.dataset.valgt = "ja"
+    event.target.onclick = () => {}
+    event.target.setAttribute("class", "chosen")
+    
+    turnLabel.innerText = "Turn " + throwCount
+    for(let i = 0; i < 15; i++){
+        if(results[i].dataset.valgt === "nej") {
+            results[i].setAttribute("disabled", true)
+            results[i].value = "0"
         }
     }
+    sum()
+    total()
+    THROWDATDICE.removeAttribute("disabled", true)
+}
+
+
+function throwDice(){
+    THROWDATDICE.setAttribute("disabled", true)
+
+    let diceThrowValue = 0
+    for (let i = 0; i < 5; i++) {
+        if (!diceHoldStatus[i]) {
+            diceThrowValue =  Math.floor(Math.random() * 6 + 1)
+            values[i] = diceThrowValue
+            diceIMG[i].src = "img/" + diceThrowValue + ".svg"
+        }
+    }
+
     frequency()
     calculateResults()
+
+    frequencyArray = [0, 0, 0, 0, 0, 0, 0]
     throwCount++;
+    turnLabel.innerText = "Turn " + throwCount
+
+    if(throwCount == 1){
+        for(let i = 0; i < 15; i++){
+            if(results[i].dataset.valgt == "nej") results[i].removeAttribute("disabled", true)
+        }
+    } 
+    if(throwCount != 3){
+        THROWDATDICE.removeAttribute("disabled", true)
+    }
 }
 
 function sum(){
     let summering = 0
     for (let i = 0; i < 6; i++) {
-        summering += Number(results[i].value)
+        if(results.dataset.valgt = "ja") summering += Number(results[i].value)
     }
     results[15].value = summering
     results[16].value = (summering >= 63) ? "50" : "0"
@@ -78,35 +110,28 @@ function sum(){
 function total(){
     let summering = 0
     for (let i = 6; i < 16; i++) {
-        if(!resultHoldStatus[i]){
+        if(results[i].dataset.valgt === "ja"){
             summering += Number(results[i].value)
         }
     }
     results[17].value = summering
 }
 
-
-function holdResult(resultToHoldIndex){
-    resultHoldStatus[resultToHoldIndex] = 1
-}
-
 function calculateResults() {
     for (let i = 0; i < 6; i++) {
-        if(!resultHoldStatus[i]){
+        if(results[i].dataset.valgt === "nej"){
             results[i].value = (this.sameValuePoints(i + 1));
         }
     }
-    if(!resultHoldStatus[6]) results[6].value = (this.onePairPoints());
-    if(!resultHoldStatus[7]) results[7].value = (this.twoPairPoints());
-    if(!resultHoldStatus[8]) results[8].value = (this.threeSamePoints());
-    if(!resultHoldStatus[9]) results[9].value = (this.fourSamePoints());
-    if(!resultHoldStatus[10]) results[10].value = (this.fullHousePoints());
-    if(!resultHoldStatus[11]) results[11].value = (this.smallStraightPoints());
-    if(!resultHoldStatus[12]) results[12].value = (this.largeStraightPoints());
-    if(!resultHoldStatus[13]) results[13].value = (this.chancePoints());
-    if(!resultHoldStatus[14]) results[14].value = (this.yatzyPoints());
-    sum()
-    total()
+    if(results[6].dataset.valgt === "nej") results[6].value = (this.onePairPoints());
+    if(results[7].dataset.valgt === "nej") results[7].value = (this.twoPairPoints());
+    if(results[8].dataset.valgt === "nej") results[8].value = (this.threeSamePoints());
+    if(results[9].dataset.valgt === "nej") results[9].value = (this.fourSamePoints());
+    if(results[10].dataset.valgt === "nej") results[10].value = (this.fullHousePoints());
+    if(results[11].dataset.valgt === "nej") results[11].value = (this.smallStraightPoints());
+    if(results[12].dataset.valgt === "nej") results[12].value = (this.largeStraightPoints());
+    if(results[13].dataset.valgt === "nej") results[13].value = (this.chancePoints());
+    if(results[14].dataset.valgt === "nej") results[14].value = (this.yatzyPoints());
 }
 
 function frequency() {

@@ -17,7 +17,7 @@ let resultHoldStatus = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 
 let throwCount = 0;
 
-
+let resultsInputFields = document.querySelectorAll("div.resultsDiv")
 
 throwDice()
 

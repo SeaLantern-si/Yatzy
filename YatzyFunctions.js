@@ -11,13 +11,13 @@ let diceHoldStatus = [0, 0, 0, 0, 0]
 
 let frequencyArray = [0, 0, 0, 0, 0, 0, 0]
 
-let results = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-
 let resultHoldStatus = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 
 let throwCount = 0;
 
-let resultsInputFields = document.querySelectorAll("div.resultsDiv")
+let results = document.querySelectorAll("input")
+
+let diceHTML = document.querySelectorAll("img")
 
 throwDice()
 
@@ -44,7 +44,6 @@ function totalPoint(){
     for (const indeks in results) {
         if(resultHoldStatus[indeks]) sum += results[indeks]
     }
-    return sum
 }
 
 function resultChosen(resultToHoldIndex){
@@ -52,7 +51,8 @@ function resultChosen(resultToHoldIndex){
     frequencyArray = [0, 0, 0, 0, 0, 0]
     throwCount = 0;
     holdResult(resultToHoldIndex)
-    totalPoint()
+    sum()
+    total()
 }
 
 function throwDice(){
@@ -66,6 +66,26 @@ function throwDice(){
     throwCount++;
 }
 
+function sum(){
+    let summering = 0
+    for (let i = 0; i < 6; i++) {
+        summering += Number(results[i].value)
+    }
+    results[15].value = summering
+    results[16].value = (summering >= 63) ? "50" : "0"
+}
+
+function total(){
+    let summering = 0
+    for (let i = 6; i < 16; i++) {
+        if(!resultHoldStatus[i]){
+            summering += Number(results[i].value)
+        }
+    }
+    results[17].value = summering
+}
+
+
 function holdResult(resultToHoldIndex){
     resultHoldStatus[resultToHoldIndex] = 1
 }
@@ -73,18 +93,20 @@ function holdResult(resultToHoldIndex){
 function calculateResults() {
     for (let i = 0; i < 6; i++) {
         if(!resultHoldStatus[i]){
-            results[i] = (this.sameValuePoints(i + 1));
+            results[i].value = (this.sameValuePoints(i + 1));
         }
     }
-    if(!resultHoldStatus[6]) results[6] = (this.onePairPoints());
-    if(!resultHoldStatus[7]) results[7] = (this.twoPairPoints());
-    if(!resultHoldStatus[8]) results[8] = (this.threeSamePoints());
-    if(!resultHoldStatus[9]) results[9] = (this.fourSamePoints());
-    if(!resultHoldStatus[10]) results[10] = (this.fullHousePoints());
-    if(!resultHoldStatus[11]) results[11] = (this.smallStraightPoints());
-    if(!resultHoldStatus[12]) results[12] = (this.largeStraightPoints());
-    if(!resultHoldStatus[13]) results[13] = (this.chancePoints());
-    if(!resultHoldStatus[14]) results[14] = (this.yatzyPoints());
+    if(!resultHoldStatus[6]) results[6].value = (this.onePairPoints());
+    if(!resultHoldStatus[7]) results[7].value = (this.twoPairPoints());
+    if(!resultHoldStatus[8]) results[8].value = (this.threeSamePoints());
+    if(!resultHoldStatus[9]) results[9].value = (this.fourSamePoints());
+    if(!resultHoldStatus[10]) results[10].value = (this.fullHousePoints());
+    if(!resultHoldStatus[11]) results[11].value = (this.smallStraightPoints());
+    if(!resultHoldStatus[12]) results[12].value = (this.largeStraightPoints());
+    if(!resultHoldStatus[13]) results[13].value = (this.chancePoints());
+    if(!resultHoldStatus[14]) results[14].value = (this.yatzyPoints());
+    sum()
+    total()
 }
 
 function frequency() {

@@ -1,14 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="YatzyStyleSheet.css">
     <script src="YatzyFunctions.js" defer></script>
     <title>Yatzy</title>
 </head>
+
 <body>
     <div class="diceDiv">
-        <button>Roll dice</button>
+        <span id="Dice">
+            <label for="Dice1" id="Dice1">Dice1</label>
+            <label for="Dice2" id="Dice2">Dice2</label>
+            <label for="Dice3" id="Dice3">Dice3</label>
+            <label for="Dice4" id="Dice4">Dice4</label>
+            <label for="Dice5" id="Dice5">Dice5</label>
+        </span>
+
+        <span id="DiceRoll">
+            <label for="Turn1" id="Turn">Turn</label>
+            <button id="Roll">Roll dice</button>
+        </span>
+
+
     </div>
     <div class="resultsDiv">
         <span id="1"><label for="">1'er</label><input type="text"></span>
@@ -32,4 +47,5 @@
         <span id="total"><label for=""></label><input type="text"></span>
     </div>
 </body>
+
 </html>

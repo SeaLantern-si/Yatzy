@@ -1,8 +1,45 @@
-body > div.diceDiv {
+.diceDiv {
     display: grid;
-    grid-template-columns: 40px 60px;
-    grid-template-rows: repeat(2, 20px);
-    gap: 5px;
+    grid-template-columns: 1fr, 1fr;
+    gap: 1em;
+    justify-items: stretch;
+    min-height: 15pc;
+    border-color: black;
+    border-style: dashed;
+    padding: 1pt;
+   
+}
+
+.diceDiv > #Dice {
+    text-align: center;
+    padding: 1em;
+    margin-inline: 1em;
+   
+}
+
+.diceDiv > #DiceRoll {
+    padding: 1em;
+    margin-inline: 1em;
+
+    
+}
+ #Turn {
+    grid-column: 1;
+    grid-row: 2;
+    color: brown;
+    vertical-align: -1pc;
+}
+
+#Roll {
+    grid-column: 2;
+    grid-row: 2;
+    color: yellowgreen;
+    position:relative;
+    left: 70%;
+    top: 25%;
+    min-height: 4pc;
+    min-width: 6pc;
+
 }
 
 body > div.resultsDiv {

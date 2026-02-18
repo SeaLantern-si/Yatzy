@@ -46,17 +46,17 @@ body > div.resultsDiv {
     border-style: ridge;
     display: grid;
     background-color: rgb(201, 121, 16);
-    margin: 10px;
     padding: 10px;
     grid-template-columns: [first-col] 2fr [second-col] 1fr [third-col] 1fr;
     grid-template-rows:  auto;
     grid-template-areas:
     "Singels . ." 
+    "Singels . ."
     "Singels . ." 
     "Singels . ." 
     "Singels . ." 
-    "Singels . ." 
-    "Singels Sum Bonus"
+    "Singels Sum Bonus" 
+    "Singels . ."
     "Singels . ." 
     "Singels . ." 
     "Singels . ." 
@@ -75,8 +75,13 @@ body div.resultsDiv span input{
 }
 
 body div.resultsDiv div.Singels span input{
-    width: 50px;
+    float: right;
 }
+
+body div.resultsDiv div.Singels span label{
+    display: inline;
+}
+
 
 .Singels {
     display: grid;

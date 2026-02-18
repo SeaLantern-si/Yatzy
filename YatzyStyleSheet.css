@@ -43,8 +43,60 @@
 }
 
 body > div.resultsDiv {
+    border-style: ridge;
     display: grid;
-    grid-template-columns: [first-col] 1fr [second-col] 1fr [third-col] 1fr;
-    grid-template-rows:  1fr 1fr 1fr;
+    background-color: rgb(201, 121, 16);
+    margin: 10px;
+    padding: 10px;
+    grid-template-columns: [first-col] 2fr [second-col] 1fr [third-col] 1fr;
+    grid-template-rows:  auto;
+    grid-template-areas:
+    "Singels . ." 
+    "Singels . ." 
+    "Singels . ." 
+    "Singels . ." 
+    "Singels . ." 
+    "Singels Sum Bonus"
+    "Singels . ." 
+    "Singels . ." 
+    "Singels . ." 
+    "Singels . ." 
+    "Singels . ." 
+    "Singels . total";
+    gap: 7px;
+}
+
+body div.resultsDiv span label{
+    padding-right: 10px;
+}
+
+body div.resultsDiv span input{
+    width: 50px;
+}
+
+body div.resultsDiv div.Singels span input{
+    width: 50px;
+}
+
+.Singels {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows:  50px;
     gap: 5px;
+    grid-area: Singels;
+}
+
+.sSum {
+    grid-area: Sum;
+    align-self: last baseline;
+}
+
+.sBonus {
+    grid-area: Bonus;
+    align-self: last baseline;
+}
+
+.total {
+    grid-area: total;
+    align-self: last baseline;
 }

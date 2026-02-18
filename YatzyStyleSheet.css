@@ -111,6 +111,14 @@ body div.resultsDiv div.Singels span label{
     grid-area: Singels;
 }
 
+.result{
+    background-color: #ffffff;
+}
+
+.chosen{
+    background-color: green;
+}
+
 .sSum {
     grid-area: Sum;
     align-self: last baseline;

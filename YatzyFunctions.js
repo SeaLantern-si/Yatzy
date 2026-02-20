@@ -21,6 +21,7 @@ let THROWDATDICE = document.getElementById("Roll")
 
 let turnLabel = document.getElementById("Turn")
 
+// The Die
 THROWDATDICE.onclick = () => throwDice()
 
 for(let i = 0; i < 15; i++){
@@ -101,7 +102,7 @@ function throwDice(){
 function sum(){
     let summering = 0
     for (let i = 0; i < 6; i++) {
-        if(results.dataset.valgt = "ja") summering += Number(results[i].value)
+        if(results[i].dataset.valgt == "ja") summering += Number(results[i].value)
     }
     results[15].value = summering
     results[16].value = (summering >= 63) ? "50" : "0"
@@ -109,8 +110,8 @@ function sum(){
 
 function total(){
     let summering = 0
-    for (let i = 6; i < 16; i++) {
-        if(results[i].dataset.valgt === "ja"){
+    for (let i = 6; i <= 16; i++) {
+        if(results[i].dataset.valgt == "ja"){
             summering += Number(results[i].value)
         }
     }

@@ -1,13 +1,11 @@
 //test casper
 //test david
-let values = [
+let dice = [
     {value: 0, hold: false}, 
     {value: 0, hold: false}, 
     {value: 0, hold: false}, 
     {value: 0, hold: false}, 
-    {value: 0, hold: false}];
-
-let diceHoldStatus = [0, 0, 0, 0, 0]
+    {value: 0, hold: false}]; // Terningerne inde i Javascript
 
 let frequencyArray = [0, 0, 0, 0, 0, 0, 0]
 
@@ -15,7 +13,7 @@ let throwCount = 0;
 
 let results = document.querySelectorAll("input")
 
-let diceIMG = document.querySelectorAll("img")
+let diceIMG = document.querySelectorAll("img") // Terningernes billeder. Trykker på disse på hjemmesiden
 
 let THROWDATDICE = document.getElementById("Roll")
 
@@ -33,13 +31,23 @@ for(let i = 0; i < results.length; i++){
     results[i].value = "0"
 }
 
-console.log(values)
+for(let i = 0; i < 5; i++) {
+    diceIMG[i].onclick = holdDice
+}
+
+function holdDice(event){
+    if(event.target.className == 'selectDice') event.target.className = ""
+    else event.target.className = 'selectDice'
+}
+
+console.log(dice)
 console.log(frequencyArray)
 console.log(results)
 
 
-function getValues(){
-    return values;
+
+function getdice(){
+    return dice;
 }
 
 function getThrowCount() {
@@ -51,7 +59,12 @@ function resetThrowCount() {
 }
 
 function resultChosen(event){
-    diceHoldStatus = [0, 0, 0, 0, 0]
+    for (let i = 0; i < 5; i++) {
+        diceIMG[i].className = ""
+        dice[i].hold = false
+        diceIMG[i].onclick = holdDice
+    }
+
     throwCount = 0;
     event.target.dataset.valgt = "ja"
     event.target.onclick = () => {}
@@ -66,21 +79,30 @@ function resultChosen(event){
     }
     sum()
     total()
+
     THROWDATDICE.removeAttribute("disabled", true)
 }
-
 
 function throwDice(){
     THROWDATDICE.setAttribute("disabled", true)
 
+    for (let i = 0; i < 5; i++) {
+        if(diceIMG[i].className == 'selectDice') {
+            dice[i].hold = true
+            diceIMG[i].onclick = () => {}
+        }
+    }
+
+
     let diceThrowValue = 0
     for (let i = 0; i < 5; i++) {
-        if (!diceHoldStatus[i]) {
+        if (!dice[i].hold) { // hold er attribut i dice for om de er holdt
             diceThrowValue =  Math.floor(Math.random() * 6 + 1)
-            values[i] = diceThrowValue
+            dice[i].value = diceThrowValue
             diceIMG[i].src = "img/" + diceThrowValue + ".svg"
         }
     }
+    console.log(dice)
 
     frequency()
     calculateResults()
@@ -136,8 +158,8 @@ function calculateResults() {
 }
 
 function frequency() {
-    for (let i = 0; i < values.length; i++) {
-        frequencyArray[values[i]]++;
+    for (let i = 0; i < dice.length; i++) {
+        frequencyArray[dice[i].value]++;
     }
 }
 
@@ -222,8 +244,8 @@ function largeStraightPoints() {
 
 function chancePoints(){
     let chance = 0;
-    for(let i = 0; i < values.length; i++){
-        chance += values[i];
+    for(let i = 0; i < dice.length; i++){
+        chance += dice[i].value;
     }
     return chance;
 }

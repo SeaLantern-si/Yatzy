@@ -137,6 +137,7 @@ function total(){
             summering += Number(results[i].value)
         }
     }
+    summering += Number(results[15].value) + Number(results[16].value)
     results[17].value = summering
 }
 

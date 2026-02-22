@@ -82,6 +82,8 @@ body > div.resultsDiv {
     "Singels . ." 
     "Singels . ." 
     "Singels . ." 
+    "Singels . ." 
+    "Singels . ." 
     "Singels . total";
     gap: 7px;
 }
@@ -106,7 +108,6 @@ body div.resultsDiv div.Singels span label{
 .Singels {
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows:  50px;
     gap: 5px;
     grid-area: Singels;
 }

@@ -19,32 +19,37 @@ let THROWDATDICE = document.getElementById("Roll")
 
 let turnLabel = document.getElementById("Turn")
 
-// The Die
+// The Die (terningen)
 THROWDATDICE.onclick = () => throwDice()
 
-for(let i = 0; i < 15; i++){
-    results[i].onclick = resultChosen
-    results[i].dataset.valgt = "nej"
-}
 
-for(let i = 0; i < results.length; i++){
-    results[i].value = "0"
-}
+gameReset()
 
-for(let i = 0; i < 5; i++) {
-    diceIMG[i].onclick = holdDice
+function gameReset(){
+    for(let i = 0; i < 15; i++){
+        results[i].dataset.valgt = "nej"
+    }
+    for(let i = 0; i < results.length; i++){
+        results[i].value = "0"
+        results[i].setAttribute("class", "result")
+    }
+
+    throwCount = 0
+    frequencyArray = [0, 0, 0, 0, 0, 0, 0]
+    turnLabel.innerText = "Turn " + throwCount
+
+    for (let i = 0; i < 5; i++) {
+        diceIMG[i].className = ""
+        diceIMG[i].src =  "img/1.svg"
+        dice[i].hold = false
+        diceIMG[i].onclick = () => {}
+    }
 }
 
 function holdDice(event){
-    if(event.target.className == 'selectDice') event.target.className = ""
-    else event.target.className = 'selectDice'
+    if(event.target.className == 'selectDice') event.target.setAttribute("class", "")
+    else event.target.setAttribute("class", "selectDice")
 }
-
-console.log(dice)
-console.log(frequencyArray)
-console.log(results)
-
-
 
 function getdice(){
     return dice;
@@ -58,11 +63,13 @@ function resetThrowCount() {
         throwCount = 0;
 }
 
+
+
 function resultChosen(event){
     for (let i = 0; i < 5; i++) {
         diceIMG[i].className = ""
         dice[i].hold = false
-        diceIMG[i].onclick = holdDice
+        diceIMG[i].onclick = () => {}
     }
 
     throwCount = 0;
@@ -77,10 +84,25 @@ function resultChosen(event){
             results[i].value = "0"
         }
     }
+
     sum()
     total()
 
     THROWDATDICE.removeAttribute("disabled", true)
+
+    if(checkForEndCondition()){
+        alert(`Du har opbrugt alle muligheder \n Endelig score er ${total()}`)
+        gameReset()
+    }
+}
+
+function checkForEndCondition(){
+    for(let i = 0; i < 15; i++){
+        if(results[i].dataset.valgt === "nej") {
+            return false
+        }
+    }
+    return true
 }
 
 function throwDice(){
@@ -111,13 +133,24 @@ function throwDice(){
     throwCount++;
     turnLabel.innerText = "Turn " + throwCount
 
-    if(throwCount == 1){
+    if(throwCount == 1){ // Efter første kast
         for(let i = 0; i < 15; i++){
-            if(results[i].dataset.valgt == "nej") results[i].removeAttribute("disabled", true)
+            if(results[i].dataset.valgt == "nej") {
+                results[i].removeAttribute("disabled", true)
+                results[i].onclick = resultChosen
+            }
         }
-    } 
-    if(throwCount != 3){
+        for (let i = 0; i < 5; i++) { // sætter muligheden for at holde terningerne
+            diceIMG[i].onclick = holdDice 
+        }
+    }
+    if(throwCount != 3){ 
         THROWDATDICE.removeAttribute("disabled", true)
+    }
+    if(throwCount == 3){
+        for (let i = 0; i < 5; i++) { // fjerner muligheden for at holde terningerne
+            diceIMG[i].onclick = () => {}
+        }
     }
 }
 
@@ -134,11 +167,12 @@ function total(){
     let summering = 0
     for (let i = 6; i <= 16; i++) {
         if(results[i].dataset.valgt == "ja"){
-            summering += Number(results[i].value)
+            summering += Number(results[i].value) // Alle resultat felter fra og med One Pair op til og med Bonus
         }
     }
-    summering += Number(results[15].value) + Number(results[16].value)
+    summering += Number(results[15].value) + Number(results[16].value) // Sum og Bonus
     results[17].value = summering
+    return summering
 }
 
 function calculateResults() {

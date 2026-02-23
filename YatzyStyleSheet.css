@@ -1,3 +1,7 @@
+body{
+    max-width: 600px;
+}
+
 .diceDiv {
     display: grid;
     grid-template-columns: 1fr,1fr, 1fr, 1fr , 1fr;
@@ -5,6 +9,7 @@
     justify-items: center;
     min-height: 15pc;
     border-color: black;
+    background-color: rgb(52, 105, 228);
     border-style: dashed;
     border-radius: 1pc;
     padding: 1.5em;
@@ -63,11 +68,12 @@ img{
 }
 
 body > div.resultsDiv {
+    border-radius: 10pt;
     border-style: ridge;
     display: grid;
     background-color: rgb(201, 121, 16);
     padding: 10px;
-    grid-template-columns: [first-col] 2fr [second-col] 1fr [third-col] 1fr;
+    grid-template-columns: [first-col] 1fr [second-col] 1fr [third-col] 1fr;
     grid-template-rows:  auto;
     grid-template-areas:
     "Singels . ." 
@@ -122,7 +128,7 @@ body div.resultsDiv div.Singels span label{
 
 .sSum {
     grid-area: Sum;
-    align-self: last baseline;
+    padding-left: 20px;
 }
 
 .sBonus {

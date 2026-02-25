@@ -167,7 +167,7 @@ function total(){
     let summering = 0
     for (let i = 6; i <= 16; i++) {
         if(results[i].dataset.valgt == "ja"){
-            summering += Number(results[i].value) // Alle resultat felter fra og med One Pair op til og med Bonus
+            summering += Number(results[i].value) // Alle resultat felter fra og med One Pair op til og med Yatzy
         }
     }
     summering += Number(results[15].value) + Number(results[16].value) // Sum og Bonus

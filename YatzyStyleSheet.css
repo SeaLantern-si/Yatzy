@@ -1,46 +1,54 @@
 body{
     max-width: 600px;
+    margin: 0 auto; /* for at holde viduet center */
+    background: linear-gradient(to bottom, #fffbe0, #e6dcb5);
+    min-height: 100vh; /* fast højde */
+    font-family: 'Times New Roman', Times, serif;
 }
 
 .diceDiv {
     display: grid;
-    grid-template-columns: 1fr,1fr, 1fr, 1fr , 1fr;
+    grid-template-columns: 1fr 1fr  1fr 1fr 1fr;
     gap: 1em;
     justify-items: center;
-    min-height: 15pc;
-    border-color: black;
-    background-color: rgb(52, 105, 228);
-    border-style: dashed;
-    border-radius: 1pc;
+    background-color: #fdf5e6; 
+    border: 4px double #999; /* Dobbelt linje ramme */
+    border-radius: 5px;
     padding: 1.5em;
     margin: .5pc;
 }
 
-div{
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+div {
     font-size: 1rem;
-    color: #19191a;
+    color: #000; /* ændret farve */
     font-weight: bold;
 }
 
-img{
-    border-radius: 10%;
-    width: 4pc;
-    border: 10px solid rgb(255, 255, 255);
+img {
+    border-radius: 20px;
+    width: 3.5pc;
+    height: 3.5pc;
+    border: 1px solid #888;
+    background-color: #fcfcfc;
+    box-sizing: border-box; /* gør at det ikke rykker sig når man selecter en terning */
+    
 }
 
 .selectDice{
-    border: 10px solid green;
+    border: 2px solid red !important;
+    opacity: 0.8;
 }
 
 .diceDiv > #Dice {
-    grid-column: 1/5;
+   grid-column: 1/6; /* Rettet til 6 kolonner*/
     grid-row: 1;
-    padding: 2pc; 
+    padding: 1pc;
+    display: flex; 
+    justify-content: center;
+    gap: 10px;
 }
 
 .diceDiv > #DiceRoll {
-    
     margin-inline: 1em;
     grid-column: 4;
     grid-row: 2;
@@ -57,11 +65,11 @@ img{
 }
 
  #Turn {
-    color: brown;
+    color: black;
 }
 
 #Roll {
-    color: yellowgreen;
+    color: black;
     min-height: 4pc;
     min-width: 6pc;
 
@@ -71,8 +79,9 @@ body > div.resultsDiv {
     border-radius: 10pt;
     border-style: ridge;
     display: grid;
-    background-color: rgb(201, 121, 16);
+    background-color: #fdf5e6;
     padding: 10px;
+    display: grid;
     grid-template-columns: [first-col] 1fr [second-col] 1fr [third-col] 1fr;
     grid-template-rows:  auto;
     grid-template-areas:
@@ -92,6 +101,7 @@ body > div.resultsDiv {
     "Singels . ." 
     "Singels . total";
     gap: 7px;
+    margin: .5pc; /* for at få kant til at passe */
 }
 
 body div.resultsDiv span label{
@@ -123,7 +133,7 @@ body div.resultsDiv div.Singels span label{
 }
 
 .chosen{
-    background-color: green;
+    background-color: #b7d7a8;
 }
 
 .sSum {
